@@ -10,7 +10,7 @@ const logos = [
     "https://morna.tech/wp-content/uploads/2024/05/6.png",
     "https://morna.tech/wp-content/uploads/2024/05/7.png",
     "https://morna.tech/wp-content/uploads/2024/05/8.png",
-    "https://morna.tech/wp-content/uploads/2024/11/flutter-logo.png"
+    "https://proyectokamila.com/wp-content/uploads/2020/09/29-min.png"
 ];
 
 // Duplicamos el array para el efecto de bucle infinito sin huecos

@@ -69,7 +69,7 @@ export default function PlanesOdooPage() {
     // Navigation fixes
     .replace(/href="index\.html"/g, 'href="/"')
     // Email replacement
-    .replace(/contacto@morna\.tech/g, 'marketing@morna.tech');
+    .replace(/contacto@morna\.tech/g, 'ventas@morna.tech');
 
   return (
     <div className="planes-odoo-page" style={{ background: '#2B1A40', minHeight: '100vh' }}>

@@ -26,8 +26,8 @@ export default function Footer() {
                         <Image
                             src="https://morna.tech/wp-content/uploads/2024/04/logo-sticky.png"
                             alt="Morna Tech Logo"
-                            width={150}
-                            height={50}
+                            width={160}
+                            height={60}
                             className="footer-contact-logo"
                         />
                     </div>
@@ -83,14 +83,14 @@ export default function Footer() {
                     <h2 className="contact-footer-title">Ubicación</h2>
                     <div className="location-info">
                         <p><strong>Dirección:</strong> C.C Millenium, torre empresarial, piso 4 oficina 4-01 Miranda- Los dos caminos.</p>
-                        <p><strong>Correo:</strong> <a href="mailto:marketing@morna.tech">marketing@morna.tech</a></p>
+                        <p><strong>Correo:</strong> <a href="mailto:ventas@morna.tech">ventas@morna.tech</a></p>
                         <p><strong>Teléfono:</strong> <a href="tel:+584241222233">+58 424-1222233</a></p>
                     </div>
                     <div className="location-map">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3922.7837469238254!2d-66.85466708514605!3d10.48850016686168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a58f3e0000001%3A0x1234567890abcdef!2sC.C.%20Millennium!5e0!3m2!1ses!2sve!4v1234567890123!5m2!1ses!2sve"
                             width="100%"
-                            height="250"
+                            height="180"
                             style={{ border: 0, borderRadius: '8px' }}
                             allowFullScreen
                             loading="lazy"

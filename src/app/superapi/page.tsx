@@ -96,9 +96,9 @@ export default function SuperAPIPage() {
     /* --- VARIABLES --- */
     :root {
         --primary-color: #2b1a40;
-        --accent-color: #d819e1;
-        --card-front-bg: #d819e1; 
-        --divider-color: #d819e1;
+        --accent-color: #f04e8a;
+        --card-front-bg: #f04e8a; 
+        --divider-color: #f04e8a;
         --secondary-btn: #1a0f26; 
         --text-color: #404040;
         --bg-beige: #F5F5DC;      
@@ -160,16 +160,16 @@ export default function SuperAPIPage() {
     .superapi-page .features-intro strong { color: var(--accent-color); font-weight: 800; }
     .superapi-page .features-wrapper { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
     
-    .superapi-page .card { background-color: transparent; height: 180px; perspective: 1000px; }
+    .superapi-page .card { background-color: transparent; height: 120px; perspective: 1000px; }
     .superapi-page .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
     .superapi-page .card:hover .card-inner { transform: rotateY(180deg); }
     .superapi-page .card-front, 
     .superapi-page .card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; }
     .superapi-page .card-front { background-color: var(--card-front-bg); color: white; }
-    .superapi-page .card-front i { color: var(--black); margin-bottom: 10px; font-size: 2.2rem; }
-    .superapi-page .card-front h4 { color: white; font-size: 1.1rem; margin: 0; line-height: 1.2; font-weight: 800; }
+    .superapi-page .card-front i { color: var(--black); margin-bottom: 6px; font-size: 1.5rem; }
+    .superapi-page .card-front h4 { color: white; font-size: 0.9rem; margin: 0; line-height: 1.1; font-weight: 800; }
     .superapi-page .card-back { background-color: var(--primary-color); color: white; transform: rotateY(180deg); }
-    .superapi-page .card-back p { font-size: 0.85rem; line-height: 1.4; margin: 0; }
+    .superapi-page .card-back p { font-size: 0.75rem; line-height: 1.2; margin: 0; }
     .superapi-page .features-wrapper .card:last-child { grid-column: 1 / -1; width: 100%; }
 
     /* --- SLIDER --- */
@@ -838,7 +838,7 @@ export default function SuperAPIPage() {
         </div>
     </section>
 
-    <div class="section-divider"></div>
+
 </main>
             ` }} />
             <Footer />

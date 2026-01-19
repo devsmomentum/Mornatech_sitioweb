@@ -72,12 +72,7 @@ export default function Navbar() {
             onMouseLeave={handleMouseLeave}
           >
             <li onMouseEnter={handleMouseEnter}>
-              <Link href="/#about" className="mt-navbar-link active" ref={activeRef}>
-                Acerca de nosotros
-              </Link>
-            </li>
-            <li onMouseEnter={handleMouseEnter}>
-              <Link href="/superapi" className="mt-navbar-link">
+              <Link href="/superapi" className="mt-navbar-link active" ref={activeRef}>
                 SuperApi
               </Link>
             </li>
@@ -91,11 +86,11 @@ export default function Navbar() {
                 Seo con IA
               </Link>
             </li>
-            <li onMouseEnter={handleMouseEnter}>
+            {/* <li onMouseEnter={handleMouseEnter}>
               <Link href="/#microapps" className="mt-navbar-link">
                 Microapps
               </Link>
-            </li>
+            </li> */}
           </ul>
           <div
             className="mt-navbar-indicator"
