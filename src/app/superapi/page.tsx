@@ -64,8 +64,74 @@ export default function SuperAPIPage() {
                 dots[i].addEventListener("click", () => handleDotClick(i + 1));
             }
 
+            // ODOO TITLE SPLITTING
+            const odooTitles = document.querySelectorAll('.odoo-card h4');
+            odooTitles.forEach(title => {
+                const text = title.textContent || '';
+                title.innerHTML = '';
+                [...text].forEach((char, i) => {
+                    const span = document.createElement('span');
+                    span.textContent = char === ' ' ? '\u00A0' : char;
+                    span.className = 'letter';
+                    title.appendChild(span);
+                });
+            });
+
             showSlides(slideIndex);
             let slideInterval = setInterval(() => { plusSlides(1); }, 3000);
+
+            // CHAT LOGIC
+            const chatMessages = document.getElementById("chat-messages");
+            const chatInput = document.getElementById("chat-input") as HTMLInputElement;
+            const chatSend = document.getElementById("chat-send");
+            const typingIndicator = document.getElementById("typing-indicator");
+
+            const addMessage = (text: string, isUser: boolean) => {
+                if (!chatMessages) return;
+                const msg = document.createElement("div");
+                msg.className = `chat-message ${isUser ? 'message-user' : 'message-bot'}`;
+                msg.textContent = text;
+                chatMessages.appendChild(msg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            };
+
+            const botResponses: Record<string, string> = {
+                "¿Qué es la SuperAPI?": "La SuperAPI es nuestra solución de inteligencia artificial avanzada que se integra directamente en tu WhatsApp para automatizar la atención al cliente con lenguaje natural.",
+                "¿Cómo ayuda a mi negocio?": "Optimiza tiempos de respuesta, atiende 24/7 sin errores, reduce costos operativos y recolecta datos valiosos de cada conversación para tus KPI.",
+                "¿Se integra con Odoo?": "¡Absolutamente! Somos expertos en Odoo. La SuperAPI puede consultar inventarios, registrar pedidos, crear leads y mucho más, todo desde el chat.",
+                "default": "¡Qué buena pregunta! La SuperAPI está diseñada para adaptarse a cualquier flujo de negocio. ¿Te gustaría agendar una demo real?"
+            };
+
+            const handleBotResponse = (userText: string) => {
+                if (!typingIndicator || !chatMessages) return;
+                typingIndicator.style.display = "flex";
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                setTimeout(() => {
+                    typingIndicator.style.display = "none";
+                    const response = botResponses[userText] || botResponses["default"];
+                    addMessage(response, false);
+                }, 1500);
+            };
+
+            const sendMessage = () => {
+                const text = chatInput?.value.trim();
+                if (text) {
+                    addMessage(text, true);
+                    chatInput.value = "";
+                    handleBotResponse(text);
+                }
+            };
+
+            (window as any).sendDemoMessage = (text: string) => {
+                addMessage(text, true);
+                handleBotResponse(text);
+            };
+
+            chatSend?.addEventListener("click", sendMessage);
+            chatInput?.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") sendMessage();
+            });
 
             return () => {
                 for (let i = 0; i < acc.length; i++) {
@@ -267,6 +333,10 @@ export default function SuperAPIPage() {
     }
     .superapi-page .odoo-card {
         text-align: center;
+        transition: transform 0.3s ease;
+    }
+    .superapi-page .odoo-card:hover {
+        transform: translateY(-10px);
     }
     .superapi-page .odoo-card h4 {
         color: var(--accent-color);
@@ -274,6 +344,28 @@ export default function SuperAPIPage() {
         margin-bottom: 25px;
         font-weight: 900;
         line-height: 1;
+        transition: all 0.4s ease;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .superapi-page .odoo-card h4 .letter {
+        display: inline-block;
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    .superapi-page .odoo-card:hover h4 .letter {
+        transform: translateY(-10px) rotate(360deg) scale(1.2);
+        color: var(--primary-color);
+        text-shadow: 0 5px 15px rgba(240, 78, 138, 0.4);
+    }
+    .superapi-page .odoo-card:hover h4 .letter:nth-child(even) {
+        transform: translateY(10px) rotate(-360deg) scale(0.8);
+    }
+    .superapi-page .odoo-card:hover h4 .letter:nth-child(3n) {
+        transform: translateX(10px) translateY(-5px) rotate(15deg);
+    }
+    .superapi-page .odoo-card:hover h4 .letter:nth-child(3n+1) {
+        transform: translateX(-10px) translateY(5px) rotate(-15deg);
     }
     .superapi-page .odoo-card p {
         color: #2b1a40;
@@ -281,6 +373,11 @@ export default function SuperAPIPage() {
         line-height: 1.4;
         margin: 0;
         font-weight: 600;
+        transition: all 0.4s ease;
+    }
+    .superapi-page .odoo-card:hover p {
+        transform: translateY(5px);
+        opacity: 0.8;
     }
 
     /* --- OPTIMIZATION SECTION --- */
@@ -640,6 +737,88 @@ export default function SuperAPIPage() {
         .superapi-page .odoo-subtitle::before, 
         .superapi-page .odoo-subtitle::after { width: 50px; }
     }
+
+    /* --- CHAT DEMO --- */
+    .chat-demo-section { padding: 100px 0; background: var(--bg-beige); text-align: center; }
+    .chat-demo-section h2 { font-size: 3.5rem; }
+    .chat-demo-container { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .chat-interface { 
+        background: white; 
+        border-radius: 24px; 
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+        overflow: hidden; 
+        display: flex; 
+        flex-direction: column; 
+        height: 500px; 
+        border: 1px solid rgba(0,0,0,0.05);
+        animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    .chat-header { 
+        background: var(--primary-color); 
+        color: white; 
+        padding: 20px; 
+        display: flex; 
+        align-items: center; 
+        gap: 15px; 
+        text-align: left;
+    }
+    .chat-header-avatar { width: 40px; height: 40px; background: var(--accent-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+    .chat-header-info h3 { color: white; margin: 0; font-size: 1.1rem; }
+    .chat-header-info p { margin: 0; font-size: 0.8rem; opacity: 0.8; color: white !important; }
+    .chat-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; background: #fafafa; }
+    .chat-message { max-width: 80%; padding: 12px 16px; border-radius: 18px; font-size: 0.95rem; line-height: 1.4; position: relative; animation: fadeInMsg 0.4s ease-out; }
+    @keyframes fadeInMsg { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .message-bot { align-self: flex-start; background: white; color: var(--text-color); border-bottom-left-radius: 4px; border: 1px solid #eee; }
+    .message-user { align-self: flex-end; background: var(--accent-color); color: white; border-bottom-right-radius: 4px; text-align: left; }
+    .chat-input-area { padding: 20px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; align-items: center; }
+    .chat-input { 
+        flex: 1; 
+        border: 2px solid #e0e0e0; 
+        padding: 14px 25px; 
+        border-radius: 30px; 
+        outline: none; 
+        transition: 0.3s; 
+        font-size: 1rem;
+        background-color: #f9f9f9; 
+        box-shadow: inset 0 2px 5px rgba(0,0,0,0.03); 
+    }
+    .chat-input:focus { 
+        border-color: var(--accent-color); 
+        background-color: white;
+        box-shadow: 0 0 0 4px rgba(240, 78, 138, 0.1); 
+    }
+    .chat-send { width: 45px; height: 45px; background: var(--accent-color); border-radius: 50%; border: none; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; }
+    .chat-send:hover { transform: scale(1.1); }
+    .chat-suggestions { display: flex; flex-direction: column; gap: 15px; text-align: left; }
+    .chat-suggestion-btn { 
+        background: white; 
+        border: 2px solid var(--accent-color); 
+        color: var(--accent-color); 
+        padding: 15px 25px; 
+        border-radius: 15px; 
+        cursor: pointer; 
+        font-weight: 700; 
+        transition: 0.3s; 
+        font-family: inherit;
+        font-size: 1rem;
+    }
+    .chat-suggestion-btn:hover { background: var(--accent-color); color: white; transform: translateX(10px); }
+    .typing-indicator { display: flex; gap: 4px; padding: 12px 16px; background: #f0f0f0; border-radius: 18px; width: fit-content; align-self: flex-start; margin-bottom: 10px; display: none; }
+    .typing-dot { width: 6px; height: 6px; background: #999; border-radius: 50%; animation: typing 1s infinite ease-in-out; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+
+    @media (max-width: 900px) {
+        .chat-demo-container { grid-template-columns: 1fr; }
+        .chat-suggestions { order: 2; }
+        .chat-interface { order: 1; height: 400px; }
+    }
+
 </style>
 
 
@@ -699,6 +878,44 @@ export default function SuperAPIPage() {
             </div>
         </div>
     </section>
+
+    <section class="chat-demo-section">
+        <div class="container">
+            <div class="chat-demo-container">
+                <div class="chat-suggestions">
+                    <h2 style="text-align: left; margin-bottom: 20px;">Interactúa con nuestra IA</h2>
+                    <p style="text-align: left; margin-bottom: 30px; font-size: 1.1rem;">Haz clic en cualquiera de las opciones para ver cómo responde la SuperAPI en tiempo real. Experimenta la fluidez y precisión de nuestra tecnología.</p>
+                    <button class="chat-suggestion-btn" onclick="sendDemoMessage('¿Qué es la SuperAPI?')">¿Qué es la SuperAPI?</button>
+                    <button class="chat-suggestion-btn" onclick="sendDemoMessage('¿Cómo ayuda a mi negocio?')">¿Cómo ayuda a mi negocio?</button>
+                    <button class="chat-suggestion-btn" onclick="sendDemoMessage('¿Se integra con Odoo?')">¿Se integra con Odoo?</button>
+                </div>
+                <div class="chat-interface">
+                    <div class="chat-header">
+                        <div class="chat-header-avatar">M</div>
+                        <div class="chat-header-info">
+                            <h3>Morna AI Assistant</h3>
+                            <p>En línea • SuperAPI</p>
+                        </div>
+                    </div>
+                    <div id="chat-messages" class="chat-messages">
+                        <div class="chat-message message-bot">¡Hola! Soy el asistente virtual de Morna Tech. ¿En qué puedo ayudarte hoy? 😊</div>
+                    </div>
+                    <div id="typing-indicator" class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" class="chat-input" placeholder="Escribe un mensaje..." autocomplete="off">
+                        <button class="chat-send" id="chat-send">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
 
 

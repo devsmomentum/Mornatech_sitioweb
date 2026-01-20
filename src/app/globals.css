@@ -159,7 +159,7 @@ button {
 
 .mt-navbar-indicator {
   position: absolute;
-  bottom: -26px;
+  bottom: -19px;
   height: 3px;
   background: var(--text-white);
   transition: left 0.6s ease-in-out, width 0.6s ease-in-out;
@@ -1253,8 +1253,8 @@ button {
   background: #000;
   border-radius: 12px;
   /* Mismo borde que la tarjeta morada */
-  padding: 2.5rem 0;
-  /* Reducido de 4.5rem a 2.5rem */
+  padding: 1rem 0;
+  /* Reducido para disminuir la altura */
   max-width: 1100px;
   margin: 0 auto;
   overflow: hidden;

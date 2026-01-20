@@ -1,13 +1,14 @@
 import Navbar from "@/components/Navbar";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ShadowContent from "@/components/ShadowContent";
+import Footer from "@/components/Footer";
+import GlosarioSection from "@/components/GlosarioSection";
 import fs from "fs";
 import path from "path";
 
 export default function PlanesOdooPage() {
   const htmlPath = path.join(process.cwd(), "public", "planes-odoo", "planes-odoo.html");
   let mainContent = "";
-  let mapContent = "";
 
   try {
     const fullHtml = fs.readFileSync(htmlPath, "utf-8");
@@ -21,19 +22,6 @@ export default function PlanesOdooPage() {
       const elementorMatch = fullHtml.match(/<div[^>]*class="[^"]*elementor-9978[^"]*"[^>]*>([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/main>/i);
       if (elementorMatch) {
         mainContent = elementorMatch[0];
-      }
-    }
-
-    // Extract the bottom section (Logo, Social, Form)
-    // Looking for the specific elementor section ID 9b6a9c4
-    const footerMatch = fullHtml.match(/<section[^>]*data-id="9b6a9c4"[^>]*>([\s\S]*?)<\/section>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/footer>/i);
-    if (footerMatch) {
-      mapContent = footerMatch[0];
-    } else {
-      // Very broad fallback for the map section if ID match fails
-      const fallbackFooterMatch = fullHtml.match(/<section[^>]*class="[^"]*elementor-element-9b6a9c4[^"]*"[^>]*>([\s\S]*?)<\/section>/i);
-      if (fallbackFooterMatch) {
-        mapContent = fallbackFooterMatch[0];
       }
     }
 
@@ -57,7 +45,7 @@ export default function PlanesOdooPage() {
   ];
 
   // Combine content
-  let combinedHtml = mainContent + (mapContent ? `<div class="extra-map-section-wrapper">${mapContent}</div>` : "");
+  let combinedHtml = mainContent;
 
   combinedHtml = combinedHtml
     // Specific logo replacements first
@@ -69,7 +57,30 @@ export default function PlanesOdooPage() {
     // Navigation fixes
     .replace(/href="index\.html"/g, 'href="/"')
     // Email replacement
-    .replace(/contacto@morna\.tech/g, 'ventas@morna.tech');
+    .replace(/contacto@morna\.tech/g, 'ventas@morna.tech')
+    // Remove original Partner Oficial title from design (handling whitespace and tags)
+    .replace(/<h1[^>]*>\s*PARTNER OFICIAL\s*<\/h1>/gi, '')
+    // Remove intro bar image section
+    .replace(/<section[^>]*data-id="2440972"[\s\S]*?<\/section>/i, '');
+
+  // Split HTML to inject React Component - capturing everything from the glossary start to the end of main
+  const glossaryRegex = /<div[^>]*data-id="1b27cbfc"[\s\S]*/i;
+  const parts = combinedHtml.split(glossaryRegex);
+
+  let part1 = combinedHtml;
+  let part2 = "";
+
+  if (parts.length > 1) {
+    const closingDivs = "</div></div></div></div></div></div>";
+    // Reconstruct the opening section tags that were in part1 but are needed for part2
+    const openingDivs = `<section class="elementor-section elementor-top-section elementor-element elementor-element-35ba0deb elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="35ba0deb" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}"><div class="elementor-container elementor-column-gap-default"><div class="elementor-row"><div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-407fd873" data-id="407fd873" data-element_type="column"><div class="elementor-column-wrap elementor-element-populated"><div class="elementor-widget-wrap">`;
+
+    part1 = parts[0] + closingDivs;
+    const remaining = parts.slice(1).join("").trim();
+    if (remaining) {
+      part2 = openingDivs + remaining;
+    }
+  }
 
   return (
     <div className="planes-odoo-page" style={{ background: '#2B1A40', minHeight: '100vh' }}>
@@ -84,8 +95,11 @@ export default function PlanesOdooPage() {
         }
       `}</style>
       <div className="planes-odoo-container" style={{ marginTop: '70px', background: '#2B1A40' }}>
-        <ShadowContent html={combinedHtml} stylesheets={stylesheets} />
+        <ShadowContent html={part1} stylesheets={stylesheets} />
+        <GlosarioSection />
+        {part2 && <ShadowContent html={part2} stylesheets={stylesheets} />}
       </div>
+      <Footer />
       <WhatsAppButton />
     </div>
   );
