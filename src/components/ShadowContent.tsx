@@ -40,6 +40,9 @@ export default function ShadowContent({ html, stylesheets }: ShadowContentProps)
           min-height: 100vh;
           margin: 0 !important;
           padding: 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          overflow-x: hidden !important;
         }
         .elementor-heading-title {
           font-family: "Exo 2", sans-serif !important;
@@ -51,17 +54,43 @@ export default function ShadowContent({ html, stylesheets }: ShadowContentProps)
         .elementor,
         .elementor-inner,
         .elementor-section-wrap,
+        .elementor-container,
+        .elementor-row,
+        .elementor-column,
+        .elementor-column-wrap,
+        .elementor-widget-wrap,
         .row,
         .wgl_col-12,
         #main-content,
         #main {
-          background-color: #2B1A40 !important;
           margin: 0 !important;
           padding: 0 !important;
           max-width: 100% !important;
           width: 100% !important;
+          box-sizing: border-box !important;
+        }
+
+        .elementor-container {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        @media (min-width: 768px) {
+            .elementor-container {
+                max-width: 1200px !important;
+            }
         }
         
+        .elementor-widget-container,
+        .elementor-text-editor,
+        .elementor-widget {
+          width: 100% !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
+        }
+
         /* GLOSARIO DE MÓDULOS CON IA */
         .wgl-accordion {
           background: #2B1A40 !important;
@@ -78,10 +107,20 @@ export default function ShadowContent({ html, stylesheets }: ShadowContentProps)
           font-family: 'Exo 2', sans-serif !important;
           font-weight: 900 !important;
           font-size: 2.2rem !important;
-          margin-top: 8rem !important;
-          margin-bottom: 5rem !important;
+          margin-top: 4rem !important;
+          margin-bottom: 3rem !important;
           display: block !important;
           text-align: left !important;
+        }
+
+        @media (max-width: 767px) {
+            .dbl-title_wrapper .dbl-title_1,
+            .dbl-title_wrapper .dbl-title {
+                margin-top: 2rem !important;
+                margin-bottom: 1.5rem !important;
+                font-size: 1.8rem !important;
+                text-align: center !important;
+            }
         }
         .wgl-accordion_header {
           padding: 10px 24px !important;
@@ -249,11 +288,26 @@ export default function ShadowContent({ html, stylesheets }: ShadowContentProps)
         
         @media (max-width: 767px) {
           .elementor-element-12a2cde4 {
-            padding: 40px 20px 80px 20px !important;
+            padding: 40px 15px 120px 15px !important;
           }
           
           .elementor-element-238cd402 .elementor-heading-title {
-            font-size: 2.5rem !important;
+            font-size: 2.2rem !important;
+            text-align: center !important;
+          }
+
+          .elementor-element-1d35196a .elementor-text-editor {
+            font-size: 1.1rem !important;
+            text-align: center !important;
+          }
+
+          .elementor-column {
+            width: 100% !important;
+          }
+          
+          .elementor-widget-wrap {
+            padding: 0 !important;
+            text-align: center !important;
           }
         }
         

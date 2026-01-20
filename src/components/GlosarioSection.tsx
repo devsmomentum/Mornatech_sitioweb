@@ -125,10 +125,36 @@ export default function GlosarioSection() {
           align-items: start;
         }
 
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .glosario-container {
+                padding: 0 20px;
+                gap: 30px;
+            }
+            .partner-text {
+                font-size: 2.8rem;
+            }
+        }
+
         @media (max-width: 968px) {
             .glosario-container {
                 grid-template-columns: 1fr;
-                gap: 50px;
+                gap: 40px;
+            }
+            .spotlight-wrapper {
+                position: relative; /* Remove sticky on mobile for better flow */
+                top: 0;
+                margin-bottom: 20px;
+            }
+            .spotlight-card {
+                padding: 30px 20px;
+            }
+            .modules-list-wrapper h2 {
+                text-align: center;
+                font-size: 2rem;
+            }
+            .modules-list-wrapper p {
+                text-align: center;
             }
         }
 
@@ -136,6 +162,7 @@ export default function GlosarioSection() {
         .spotlight-wrapper {
             position: sticky;
             top: 100px; /* Sticky scroll effect */
+            z-index: 5;
         }
 
         .spotlight-card {
@@ -149,6 +176,23 @@ export default function GlosarioSection() {
             overflow: hidden;
             color: #2b1a40; /* Texto oscuro para fondo blanco */
             border: 1px solid rgba(240, 78, 138, 0.1);
+            min-height: 400px; /* Consistencia de altura */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (max-width: 480px) {
+            .spotlight-card {
+                min-height: auto;
+                padding: 30px 15px;
+            }
+            .spotlight-icon {
+                font-size: 3rem;
+            }
+            .spotlight-title {
+                font-size: 1.8rem;
+            }
         }
 
         .spotlight-card::after {
@@ -169,6 +213,14 @@ export default function GlosarioSection() {
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        @media (max-width: 480px) {
+            .spotlight-icon-circles {
+                width: 90px;
+                height: 90px;
+                margin-bottom: 15px;
+            }
         }
 
         .circle-pulse {
@@ -220,9 +272,32 @@ export default function GlosarioSection() {
             gap: 15px;
         }
 
+        @media (max-width: 1200px) {
+            .modules-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 640px) {
             .modules-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .module-btn {
+                height: 100px;
+                padding: 10px;
+            }
+            .module-btn i {
+                font-size: 1.5rem;
+            }
+            .module-btn span {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .modules-grid {
+                grid-template-columns: 1fr;
             }
         }
 

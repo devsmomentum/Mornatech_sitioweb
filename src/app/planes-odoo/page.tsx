@@ -59,9 +59,7 @@ export default function PlanesOdooPage() {
     // Email replacement
     .replace(/contacto@morna\.tech/g, 'ventas@morna.tech')
     // Remove original Partner Oficial title from design (handling whitespace and tags)
-    .replace(/<h1[^>]*>\s*PARTNER OFICIAL\s*<\/h1>/gi, '')
-    // Remove intro bar image section
-    .replace(/<section[^>]*data-id="2440972"[\s\S]*?<\/section>/i, '');
+    .replace(/<h1[^>]*>\s*PARTNER OFICIAL\s*<\/h1>/gi, '');
 
   // Split HTML to inject React Component - capturing everything from the glossary start to the end of main
   const glossaryRegex = /<div[^>]*data-id="1b27cbfc"[\s\S]*/i;

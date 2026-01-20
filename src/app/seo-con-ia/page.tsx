@@ -58,8 +58,8 @@ export default function SEOConIAPage() {
         --primary-color: #2b1a40;
         --accent-color: #01A17F;
         --pink-title: #E3467E;
-        --divider-color: #E212EE;
-        --card-front-bg: #E212EE;
+        --divider-color: #f04e8a;
+        --card-front-bg: #f04e8a;
         --text-color: #404040;
         --bg-light: #f9f9f9;
         --bg-beige: #F5F5DC;
@@ -135,8 +135,8 @@ export default function SEOConIAPage() {
         border-radius: 15px; display: flex; flex-direction: column;
         align-items: center; justify-content: center; padding: 15px; box-sizing: border-box;
     }
-    .seo-page .card-front { background-color: #E212EE; color: white; }
-    .seo-page .card-front i { color: #000000; margin-bottom: 10px; }
+    .seo-page .card-front { background-color: #f04e8a; color: white; }
+    .seo-page .card-front i { color: white; margin-bottom: 10px; }
     .seo-page .card-front h3 { font-size: 1.4rem; color: white; margin: 5px 0 0 0; line-height: 1.2; }
     .seo-page .card-back { background-color: #2b1a40; color: white; transform: rotateY(180deg); }
     .seo-page .card-back p { font-size: 0.95rem; line-height: 1.4; margin: 0; }
@@ -162,7 +162,7 @@ export default function SEOConIAPage() {
     .seo-page .divider-line {
         width: 80%; 
         height: 4px; 
-        background-color: #E212EE;
+        background-color: var(--divider-color);
         margin: 0 auto 40px auto; 
         border-radius: 2px;
     }

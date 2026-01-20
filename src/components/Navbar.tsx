@@ -12,6 +12,14 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
     if (!menuRef.current) return;
 
     // Find the link that matches the current pathname
@@ -109,7 +117,7 @@ export default function Navbar() {
         </Link>
 
         <button
-          className="mt-navbar-mobile-toggle"
+          className={`mt-navbar-mobile-toggle ${isOpen ? 'open' : ''}`}
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
@@ -125,17 +133,17 @@ export default function Navbar() {
             onMouseLeave={handleMouseLeave}
           >
             <li onMouseEnter={handleMouseEnter} style={{ display: 'flex', justifyContent: 'center', width: 'auto' }}>
-              <Link href="/superapi" className={`mt-navbar-link ${pathname === '/superapi' ? 'active' : ''}`}>
+              <Link href="/superapi" onClick={() => setIsOpen(false)} className={`mt-navbar-link ${pathname === '/superapi' ? 'active' : ''}`}>
                 SuperApi
               </Link>
             </li>
             <li onMouseEnter={handleMouseEnter} style={{ display: 'flex', justifyContent: 'center', width: 'auto' }}>
-              <Link href="/planes-odoo" className={`mt-navbar-link ${pathname === '/planes-odoo' ? 'active' : ''}`}>
+              <Link href="/planes-odoo" onClick={() => setIsOpen(false)} className={`mt-navbar-link ${pathname === '/planes-odoo' ? 'active' : ''}`}>
                 Planes Odoo
               </Link>
             </li>
             <li onMouseEnter={handleMouseEnter} style={{ display: 'flex', justifyContent: 'center', width: 'auto' }}>
-              <Link href="/seo-con-ia" className={`mt-navbar-link ${pathname === '/seo-con-ia' ? 'active' : ''}`}>
+              <Link href="/seo-con-ia" onClick={() => setIsOpen(false)} className={`mt-navbar-link ${pathname === '/seo-con-ia' ? 'active' : ''}`}>
                 Seo con IA
               </Link>
             </li>
