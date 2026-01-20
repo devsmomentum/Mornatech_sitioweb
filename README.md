@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Morna Tech - Sitio Web Oficial
 
-## Getting Started
+Sitio web moderno desarrollado con **Next.js 14**, enfocado en ofrecer soluciones tecnológicas avanzadas, integración con Odoo y servicios de inteligencia artificial.
 
-First, run the development server:
+## 🚀 Tecnologías Principales
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Frontend**: Next.js 14 (App Router)
+- **Lenguaje**: TypeScript
+- **Estilos**: CSS (Globals & Modules)
+- **Iconos**: MDI Icons & Font Awesome
+- **Componentes**: React Hooks & Shadow DOM (para aislamiento de estilos en secciones externas)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Actualizaciones Recientes (Rama Diseño)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+En las últimas versiones se han implementado mejoras críticas de diseño y funcionalidad:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Restauración de "Planes Odoo"
+- Recuperación completa de la sección de planes.
+- Restauración de activos (imágenes, logos y CSS original).
+- Inyección dinámica de componentes React (Glosario de Módulos) dentro de contenido HTML estático.
 
-## Learn More
+### 2. Rediseño de Identidad Visual
+- **Paleta de Colores**: Unificación del color de marca al tono **Rosa/Salmón (`#f04e8a`)** para mayor armonía visual.
+- **Sección SEO con IA**: Rediseño de tarjetas interactivas (Flip Cards) con la nueva paleta de colores.
+- **SuperAPI**: Ajuste de iconos y divisores para mantener la consistencia de marca.
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Ajustes de UI/UX
+- **Footer**: Centrado simétrico del logo de Morna Tech respecto a los iconos de redes sociales.
+- **Navegación**: Menú interactivo con indicadores dinámicos de sección activa.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 💻 Desarrollo Local
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Para ejecutar el proyecto en tu entorno local:
 
-## Deploy on Vercel
+1. Instalar dependencias:
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Iniciar el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Abrir [http://localhost:3000](http://localhost:3000) en el navegador.
+
+---
+© 2024 Morna Tech. Todos los derechos reservados.
