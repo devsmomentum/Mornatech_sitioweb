@@ -345,27 +345,6 @@ export default function SuperAPIPage() {
         font-weight: 900;
         line-height: 1;
         transition: all 0.4s ease;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-    .superapi-page .odoo-card h4 .letter {
-        display: inline-block;
-        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
-    .superapi-page .odoo-card:hover h4 .letter {
-        transform: translateY(-10px) rotate(360deg) scale(1.2);
-        color: var(--primary-color);
-        text-shadow: 0 5px 15px rgba(240, 78, 138, 0.4);
-    }
-    .superapi-page .odoo-card:hover h4 .letter:nth-child(even) {
-        transform: translateY(10px) rotate(-360deg) scale(0.8);
-    }
-    .superapi-page .odoo-card:hover h4 .letter:nth-child(3n) {
-        transform: translateX(10px) translateY(-5px) rotate(15deg);
-    }
-    .superapi-page .odoo-card:hover h4 .letter:nth-child(3n+1) {
-        transform: translateX(-10px) translateY(5px) rotate(-15deg);
     }
     .superapi-page .odoo-card p {
         color: #2b1a40;
