@@ -33,13 +33,13 @@ export default function Navbar() {
 
     const activeLink = menuRef.current.querySelector('.mt-navbar-link.active') as HTMLElement;
     if (activeLink && activeLink.parentElement) {
-      const li = activeLink.parentElement;
-      const wrapperRect = wrapperRef.current.getBoundingClientRect();
-      const liRect = li.getBoundingClientRect();
+      const li = activeLink.parentElement as HTMLLIElement;
 
+      // Calculo robusto: offset del li + offset del ul
+      const menuOffset = menuRef.current?.offsetLeft || 0;
       setIndicatorStyle({
-        left: liRect.left - wrapperRect.left,
-        width: liRect.width,
+        left: menuOffset + li.offsetLeft,
+        width: li.offsetWidth,
       });
     } else {
       setIndicatorStyle({ left: 0, width: 0 });
@@ -47,25 +47,25 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    updateIndicator();
-    // Re-calculamos al cambiar el tamaño de ventana o ruta
-    const handleResize = () => updateIndicator();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    // Pequeño delay para asegurar que el DOM esté listo y estilos aplicados
+    const timer = setTimeout(updateIndicator, 100);
+    window.addEventListener('resize', updateIndicator);
+    return () => {
+      window.removeEventListener('resize', updateIndicator);
+      clearTimeout(timer);
+    };
   }, [pathname, isOpen]);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLLIElement>) => {
     if (typeof window === 'undefined') return;
     if (window.innerWidth <= 968) return;
-    if (!wrapperRef.current) return;
 
     const li = e.currentTarget;
-    const wrapperRect = wrapperRef.current.getBoundingClientRect();
-    const liRect = li.getBoundingClientRect();
+    const menuOffset = menuRef.current?.offsetLeft || 0;
 
     setIndicatorStyle({
-      left: liRect.left - wrapperRect.left,
-      width: liRect.width,
+      left: menuOffset + li.offsetLeft,
+      width: li.offsetWidth,
     });
   };
 

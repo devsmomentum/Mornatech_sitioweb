@@ -649,6 +649,7 @@ export default function SuperAPIPage() {
         .superapi-page .odoo-grid { grid-template-columns: 1fr; text-align: center; }
         .superapi-page .hero h1 { font-size: 2.8rem; }
         .superapi-page .features-info { margin-bottom: 40px; }
+        .superapi-page .features-info h2 { font-size: 2.2rem; }
         .superapi-page .features-wrapper { grid-template-columns: 1fr; }
         .superapi-page .features-wrapper .card:last-child { width: 100%; }
         .superapi-page .hero-buttons { justify-content: center; }
@@ -657,7 +658,9 @@ export default function SuperAPIPage() {
         .superapi-page .qr-text-left h2, 
         .superapi-page .qr-text-right p { text-align: center; }
         .superapi-page .qr-image-center img { max-width: 250px; }
-        .superapi-page .odoo-text h3 { text-align: center; }
+        /* Ajuste títulos Odoo móvil */
+        .superapi-page .odoo-header h2 { font-size: 2.5rem; }
+        .superapi-page .odoo-text h3 { text-align: center; font-size: 1.8rem; }
         .superapi-page .odoo-text p { text-align: left; }
         .superapi-page .odoo-cards-container {
             grid-template-columns: 1fr;
@@ -669,47 +672,137 @@ export default function SuperAPIPage() {
         .superapi-page .opt-section h2 { font-size: 2.2rem; }
         .superapi-page .opt-box i { font-size: 3.5rem; }
         .superapi-page .opt-footer-text { font-size: 1rem; }
-        /* Timeline responsive */
+        /* Timeline responsive - Estilo Cable Borde Izquierdo */
+        .superapi-page .wgl-timeline-vertical {
+            padding: 0 5px; /* Mínimo padding contenedor */
+        }
+
         .superapi-page .time_line-item {
-            justify-content: flex-start !important;
-            padding-left: 100px !important;
-            padding-right: 20px !important;
-            margin-bottom: 80px;
+            display: block !important;
+            padding: 0 0 0 35px !important;
+            padding-right: 0 !important; /* Eliminar padding derecho */
+            margin-bottom: 30px; 
+            position: relative;
+            min-height: auto !important; 
         }
         
+        /* Línea principal pegada al borde extendida Arriba y Abajo */
+        .superapi-page .wgl-timeline-vertical::before {
+            content: ''; 
+            position: absolute;
+            left: 5px;
+            width: 6px;
+            transform: none;
+            height: auto !important; /* Usar top/bottom */
+            top: -30px !important; /* Extensión hacia ARRIBA */
+            bottom: -30px !important; /* Extensión hacia ABAJO */
+            background-color: var(--accent-color);
+            z-index: 0;
+        }
+
+        /* Nodos Inicio/Fin Estilo Diana (Multicapa) */
         .superapi-page .time_line-start_image,
         .superapi-page .time_line-end_image {
-            left: 30px;
+            left: 8px; 
+            width: 32px;
+            height: 32px;
+            transform: translateX(-50%);
+            background-color: var(--primary-color) !important; /* Anillo medio (Morado) */
+            border: 5px solid var(--accent-color); /* Anillo exterior (Rosa) */
+            border-radius: 50%;
+            box-shadow: none;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Punto central pequeño (Rosa) */
+        .superapi-page .time_line-start_image::after,
+        .superapi-page .time_line-end_image::after {
+            content: '';
+            display: block;
+            width: 10px; /* Círculo pequeño */
+            height: 10px;
+            background-color: var(--accent-color); /* Rosa */
+            border-radius: 50%;
+        }
+
+        /* Ocultar contenido interno si lo hay */
+        .superapi-page .time_line-start_image span,
+        .superapi-page .time_line-end_image span {
+            display: none;
         }
         
-        .superapi-page .time_line-pointer {
-            left: 30px;
-        }
-        
-        /* Curvas en móvil - todas hacia la derecha */
+        /* Cable conector horizontal SÓLIDO - UNIFICADO */
+        .superapi-page .time_line-item .time_line-curve,
         .superapi-page .time_line-item:nth-child(odd) .time_line-curve,
         .superapi-page .time_line-item:nth-child(even) .time_line-curve {
-            left: 30px;
-            right: auto;
-            border-left: none;
-            border-right: 6px solid var(--accent-color);
-            border-bottom: 6px solid var(--accent-color);
-            border-bottom-right-radius: 60px;
-            border-top-right-radius: 60px;
-            border-bottom-left-radius: 0;
-            border-top-left-radius: 0;
-            width: 80px;
-            height: 140px;
-            top: -50px;
+            display: block !important;
+            position: absolute;
+            left: 5px !important; /* Empezar DESDE la línea vertical (left: 5px) */
+            right: auto !important; 
+            top: 25px !important;
+            width: 33px !important; /* 30px + 3px extra para compensar */
+            height: 6px !important; 
+            background-color: var(--accent-color) !important;
+            border: none !important;
+            border-radius: 0 !important;
+            z-index: 5;
+            content: '' !important;
+            transform: none !important;
+            margin: 0 !important;
+        }
+
+        /* Puntero como anillo de anclaje */
+        .superapi-page .time_line-item:nth-child(odd) .time_line-pointer,
+        .superapi-page .time_line-item:nth-child(even) .time_line-pointer {
+            left: 35px; /* Justo en el borde de la tarjeta */
+            top: 25px; /* Alineado verticalmente */
+            transform: translate(-50%, -50%); /* Centrado en la intersección */
+            width: 14px;
+            height: 14px;
+            background: var(--primary-color); /* Fondo oscuro para simular hueco */
+            border: 4px solid var(--accent-color); /* Aro grueso */
+            border-radius: 50%;
+            z-index: 15;
+            box-shadow: none;
+        }
+
+        /* Limpieza de decoraciones extra */
+        .superapi-page .time_line-pointer::after,
+        .superapi-page .time_line-item:nth-child(odd) .time_line-curve::after,
+        .superapi-page .time_line-item:nth-child(even) .time_line-curve::after,
+        .superapi-page .time_line-curve::before {
+            display: none !important;
         }
         
-        .superapi-page .time_line-item:first-child .time_line-curve {
-            top: -70px;
-            height: 160px;
-        }
-        
+        /* Tarjeta de contenido - Ultracompacta */
         .superapi-page .time_line-content {
-            max-width: 100%;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 10px 12px !important; /* Padding mínimo */
+            border-radius: 10px !important;
+            border: none;
+            border-left: 6px solid var(--accent-color) !important;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Ajustes de texto compactos */
+        .superapi-page .time_line-title {
+            font-size: 1.2rem;
+            margin-bottom: 4px; /* Margen mínimo título */
+            color: var(--primary-color);
+            text-align: left;
+            line-height: 1.2;
+        }
+        
+        .superapi-page .time_line-text p {
+            font-size: 0.95rem;
+            text-align: left;
+            line-height: 1.4;
+            margin: 0;
         }
         
         .superapi-page .odoo-subtitle { font-size: 1.2rem; flex-direction: column; gap: 10px; }
@@ -770,7 +863,7 @@ export default function SuperAPIPage() {
         background-color: white;
         box-shadow: 0 0 0 4px rgba(240, 78, 138, 0.1); 
     }
-    .chat-send { width: 45px; height: 45px; background: var(--accent-color); border-radius: 50%; border: none; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; }
+    .chat-send { width: 45px; height: 45px; background: var(--accent-color); border-radius: 50%; border: none; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; flex-shrink: 0; }
     .chat-send:hover { transform: scale(1.1); }
     .chat-suggestions { display: flex; flex-direction: column; gap: 15px; text-align: left; }
     .chat-suggestion-btn { 
@@ -796,6 +889,15 @@ export default function SuperAPIPage() {
         .chat-demo-container { grid-template-columns: 1fr; }
         .chat-suggestions { order: 2; }
         .chat-interface { order: 1; height: 400px; }
+        .chat-header-info h3 { font-size: 0.95rem; }
+        .chat-header { padding: 15px; }
+        
+        /* Ajuste para evitar corte del botón enviar */
+        .chat-input-area { padding: 15px 10px; } 
+        .chat-input { padding: 10px 15px; font-size: 0.9rem; }
+        
+        /* Ajuste título Interactúa con nuestra IA */
+        .chat-suggestions h2 { font-size: 2rem !important; margin-bottom: 15px !important; }
     }
 
 </style>
