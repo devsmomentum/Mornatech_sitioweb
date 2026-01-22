@@ -116,16 +116,6 @@ export default function Navbar() {
           />
         </Link>
 
-        <button
-          className={`mt-navbar-mobile-toggle ${isOpen ? 'open' : ''}`}
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
         <div className="mt-navbar-menu-wrapper">
           <ul
             ref={menuRef}
@@ -157,6 +147,16 @@ export default function Navbar() {
             }}
           />
         </div>
+
+        <button
+          className={`mt-navbar-mobile-toggle ${isOpen ? 'open' : ''}`}
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </nav>
   );
