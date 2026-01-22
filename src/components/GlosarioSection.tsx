@@ -31,9 +31,9 @@ export default function GlosarioSection() {
             <style>{`
         #glosario-ia {
             background: #2B1A40; /* Fondo Morado Original */
-            padding: 20px 0 0; 
-            margin-top: -80px;
-            margin-bottom: 0; /* Eliminado el margen negativo para dar más espacio */
+            padding: 0; 
+            margin-top: -140px; /* Elevación agresiva para subir el cuadro al máximo */
+            margin-bottom: 0;
             font-family: 'Outfit', sans-serif;
             position: relative;
             overflow: hidden;
@@ -144,7 +144,7 @@ export default function GlosarioSection() {
             .spotlight-wrapper {
                 position: relative; /* Remove sticky on mobile for better flow */
                 top: 0;
-                margin-bottom: 20px;
+                margin-bottom: 60px; /* Aumentado para separar del título de abajo */
             }
             .spotlight-card {
                 padding: 30px 20px;

@@ -81,7 +81,7 @@ export default function PlanesOdooPage() {
   }
 
   return (
-    <div className="planes-odoo-page" style={{ background: '#2B1A40', minHeight: '100vh' }}>
+    <div className="planes-odoo-page" style={{ background: '#FEFDF5', minHeight: '100vh' }}>
       <Navbar />
       <style>{`
         /* Ocultar iconos de redes sociales no deseados en Planes Odoo */
@@ -91,8 +91,24 @@ export default function PlanesOdooPage() {
         .extra-map-section-wrapper .elementor-social-icon-x-twitter {
           display: none !important;
         }
+        
+        /* CORRECCIÓN FONDO BLANCO: Forzar beige en todo */
+        body, .planes-odoo-page, .planes-odoo-container {
+            background-color: #FEFDF5 !important;
+        }
+        /* Eliminar fondos blancos de Elementor en esta página */
+        .planes-odoo-container .elementor-section,
+        .planes-odoo-container .elementor-column,
+        .planes-odoo-container .elementor-widget-wrap {
+            background-color: transparent !important;
+        }
+        /* Asegurar que la primera sección tenga el beige si tiene imagen de fondo o color propio */
+        .planes-odoo-container .elementor-section:first-child {
+             background-color: #FEFDF5 !important;
+             margin-top: -1px; /* Evitar línea de pixel */
+        }
       `}</style>
-      <div className="planes-odoo-container" style={{ marginTop: '70px', background: '#2B1A40' }}>
+      <div className="planes-odoo-container" style={{ paddingTop: '50px', background: '#FEFDF5' }}>
         <ShadowContent html={part1} stylesheets={stylesheets} />
         <GlosarioSection />
         {part2 && <ShadowContent html={part2} stylesheets={stylesheets} />}
