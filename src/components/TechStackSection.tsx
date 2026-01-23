@@ -25,9 +25,8 @@ export default function TechStackSection() {
     useEffect(() => {
         setMounted(true);
         const handleResize = () => {
-            if (window.innerWidth <= 480) setVisibleItems(2);
-            else if (window.innerWidth <= 768) setVisibleItems(3);
-            else if (window.innerWidth <= 1024) setVisibleItems(4);
+            if (window.innerWidth <= 640) setVisibleItems(1); // 1 item gigante en móvil
+            else if (window.innerWidth <= 1024) setVisibleItems(3);
             else setVisibleItems(7);
         };
         handleResize();

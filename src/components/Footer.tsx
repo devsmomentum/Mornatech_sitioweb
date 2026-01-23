@@ -35,10 +35,10 @@ export default function Footer() {
                         <a href="https://wa.me/584241222233" target="_blank" rel="noopener noreferrer" className="social-icon">
                             <i className="fab fa-whatsapp"></i>
                         </a>
-                        <a href="https://www.instagram.com/mornatech/" target="_blank" rel="noopener noreferrer" className="social-icon">
+                        <a href="https://www.instagram.com/morna.tech?igsh=anBlcmRmaWM5Ym9o" target="_blank" rel="noopener noreferrer" className="social-icon">
                             <i className="fab fa-instagram"></i>
                         </a>
-                        <a href="https://www.youtube.com/@mornatech" target="_blank" rel="noopener noreferrer" className="social-icon">
+                        <a href="https://youtube.com/@mornaelpodcast?si=2zjbtUZrEz9_uLhf" target="_blank" rel="noopener noreferrer" className="social-icon">
                             <i className="fab fa-youtube"></i>
                         </a>
                     </div>

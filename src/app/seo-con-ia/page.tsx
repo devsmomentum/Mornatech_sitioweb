@@ -2,6 +2,7 @@
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 import { useState, useEffect } from 'react';
 
@@ -43,6 +44,7 @@ export default function SEOConIAPage() {
                 <Navbar />
                 <div style={{ minHeight: '100vh', background: '#F5F5DC' }}></div>
                 <Footer />
+                <WhatsAppButton />
             </>
         );
     }
@@ -364,6 +366,7 @@ export default function SEOConIAPage() {
 
             ` }} />
             <Footer />
+            <WhatsAppButton />
         </>
     );
 }
