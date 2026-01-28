@@ -148,7 +148,7 @@ export default function SuperAPIPage() {
         return (
             <>
                 <Navbar />
-                <div style={{ minHeight: '100vh', background: '#F5F5DC' }}></div>
+                <div suppressHydrationWarning style={{ minHeight: '100vh', background: '#F5F5DC' }}></div>
                 <Footer />
                 <WhatsAppButton />
             </>
@@ -176,12 +176,15 @@ export default function SuperAPIPage() {
     }
 
     /* --- GENERAL --- */
+    html, body { background-color: var(--bg-beige); } /* Force body background */
     .superapi-page * { box-sizing: border-box; }
     .superapi-page {
         font-family: 'Exo 2', sans-serif;
         color: var(--text-color);
         line-height: 1.6;
-        background-color: var(--white);
+        background-color: var(--bg-beige); /* Changed from white to beige */
+        margin-top: 0;
+        padding-top: 0;
     }
     .superapi-page h1, 
     .superapi-page h2, 
@@ -649,6 +652,20 @@ export default function SuperAPIPage() {
         .superapi-page .faq-section .container, 
         .superapi-page .features-layout, 
         .superapi-page .odoo-grid { grid-template-columns: 1fr; text-align: center; }
+        
+        .superapi-page .hero { padding: 140px 0 60px 0; min-height: auto; }
+        .superapi-page .hero-img img { max-width: 250px; margin: 0 auto; } /* Reduce hero image on mobile */
+        .superapi-page .intro-section { padding: 40px 0; }
+        .superapi-page .features-list { padding: 40px 0; }
+        .superapi-page .slider-section { padding: 40px 0; }
+        .superapi-page .faq-section { padding: 40px 0; }
+        .superapi-page .qr-gradient-section { padding: 40px 0; }
+        .superapi-page .odoo-section { padding: 40px 0; }
+        .superapi-page .odoo-cards-section { padding: 20px 0 40px 0; }
+        .superapi-page .opt-section { padding: 20px 0 40px 0; }
+        .superapi-page .timeline-header { padding: 40px 0 10px 0; }
+        .superapi-page .timeline-body { padding: 20px 0 60px 0; }
+
         .superapi-page .hero h1 { font-size: 2.8rem; }
         .superapi-page .features-info { margin-bottom: 40px; }
         .superapi-page .features-info h2 { font-size: 2.2rem; }
@@ -905,7 +922,7 @@ export default function SuperAPIPage() {
 </style>
 
 
-<main class="superapi-page">
+<main className="superapi-page">
     <section class="hero">
         <div class="container">
             <div class="hero-text">
@@ -989,7 +1006,7 @@ export default function SuperAPIPage() {
                         <div class="typing-dot"></div>
                     </div>
                     <div class="chat-input-area">
-                        <input type="text" id="chat-input" class="chat-input" placeholder="Escribe un mensaje..." autocomplete="off">
+                        <input type="text" id="chat-input" class="chat-input" placeholder="Escribe un mensaje..." autocomplete="off" suppressHydrationWarning>
                         <button class="chat-send" id="chat-send">
                             <i class="fas fa-paper-plane"></i>
                         </button>

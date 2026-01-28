@@ -673,8 +673,22 @@ button {
   margin-bottom: 5rem;
 }
 
+@media (max-width: 768px) {
+  .superapi-features {
+    margin-bottom: 2.5rem;
+    /* Reducido de 5rem */
+  }
+}
+
 .superapi-odoo {
   margin-top: 5rem;
+}
+
+@media (max-width: 768px) {
+  .superapi-odoo {
+    margin-top: 2.5rem;
+    /* Reducido de 5rem */
+  }
 }
 
 .caracteristicas-line {
@@ -1488,6 +1502,13 @@ button {
   text-align: center;
 }
 
+@media (max-width: 768px) {
+  .tech-stack-section {
+    padding: 2rem 1rem 3rem;
+    /* Reducido de 6rem a 3rem */
+  }
+}
+
 .tech-stack-title {
   font-family: 'Outfit', sans-serif;
   font-size: clamp(2rem, 8vw, 3rem);
@@ -1567,6 +1588,13 @@ button {
   margin-top: 4rem;
 }
 
+@media (max-width: 768px) {
+  .tech-dots {
+    margin-top: 2rem;
+    /* Reducido de 4rem */
+  }
+}
+
 .tech-dot {
   width: 4px;
   /* Reducido de 8px */
@@ -1611,6 +1639,13 @@ button {
   background: var(--bg-section-cream);
   padding: 2rem 2rem 6rem;
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .aliados-section {
+    padding: 1.5rem 1rem 3rem;
+    /* Reducido */
+  }
 }
 
 .aliados-container {
@@ -1682,6 +1717,13 @@ button {
   padding: 4rem 2rem 8rem;
   text-align: center;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .clientes-section {
+    padding: 2.5rem 1rem 4rem;
+    /* Reducido */
+  }
 }
 
 .clientes-container {
@@ -1809,6 +1851,13 @@ button {
   background: #2b1a40;
   padding: 6rem 2rem 4rem;
   color: white;
+}
+
+@media (max-width: 768px) {
+  .philosophy-section {
+    padding: 3rem 1.5rem 2rem;
+    /* Reducido */
+  }
 }
 
 .philosophy-container {
@@ -1961,8 +2010,11 @@ button {
 .contact-footer-location-section {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  /* Centrar items horizontalmente en el flex */
   max-width: 320px;
-  justify-self: end;
+  justify-self: center;
+  /* Centrar la sección en la columna del grid */
 }
 
 .contact-footer-title {
@@ -1974,10 +2026,7 @@ button {
   text-align: center;
 }
 
-.contact-footer-location-section {
-  max-width: 320px;
-  justify-self: end;
-}
+
 
 .location-info p {
   margin-bottom: 0.6rem;
@@ -2044,6 +2093,8 @@ button {
   color: white;
   margin-bottom: 1.5rem;
   line-height: 1.8;
+  text-align: center;
+  /* Centrar el texto de dirección, correo y teléfono */
 }
 
 .location-info p {

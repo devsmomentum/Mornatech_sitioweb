@@ -17,6 +17,12 @@ export const metadata: Metadata = {
     title: "Morna Tech | La Revolución de la atención al Cliente con IA",
     description: "SuperAPI mejora la atención al cliente en WhatsApp con inteligencia artificial.",
     type: "website",
+    images: ["https://morna.tech/wp-content/uploads/2024/05/cropped-Perfil.png"],
+  },
+  icons: {
+    icon: "https://morna.tech/wp-content/uploads/2024/05/cropped-Perfil.png",
+    shortcut: "https://morna.tech/wp-content/uploads/2024/05/cropped-Perfil.png",
+    apple: "https://morna.tech/wp-content/uploads/2024/05/cropped-Perfil.png",
   },
 };
 

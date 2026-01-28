@@ -61,8 +61,8 @@ export default function PlanesOdooPage() {
     // Remove original Partner Oficial title from design (handling whitespace and tags)
     .replace(/<h1[^>]*>\s*PARTNER OFICIAL\s*<\/h1>/gi, '');
 
-  // Split HTML to inject React Component - capturing everything from the glossary start to the end of main
-  const glossaryRegex = /<div[^>]*data-id="1b27cbfc"[\s\S]*/i;
+  // Split HTML to inject React Component - non-greedy match to only remove the original glossary
+  const glossaryRegex = /<div[^>]*data-id="1b27cbfc"[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/section>/i;
   const parts = combinedHtml.split(glossaryRegex);
 
   let part1 = combinedHtml;
@@ -108,7 +108,7 @@ export default function PlanesOdooPage() {
              margin-top: -1px; /* Evitar línea de pixel */
         }
       `}</style>
-      <div className="planes-odoo-container" style={{ paddingTop: '50px', background: '#FEFDF5' }}>
+      <div className="planes-odoo-container" style={{ paddingTop: '80px', background: '#F5F5DC' }}>
         <ShadowContent html={part1} stylesheets={stylesheets} />
         <GlosarioSection />
         {part2 && <ShadowContent html={part2} stylesheets={stylesheets} />}
