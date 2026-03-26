@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 const aliados = [
     {
@@ -26,12 +27,13 @@ export default function AliadosSection() {
                 <div className="aliados-grid">
                     {aliados.map((aliado, index) => (
                         <div key={index} className="aliado-item">
-                            <img
+                            <Image
                                 src={aliado.src}
                                 alt={aliado.name}
                                 className="aliado-img"
+                                width={180}
+                                height={80}
                                 loading="lazy"
-                                referrerPolicy="no-referrer"
                             />
                         </div>
                     ))}

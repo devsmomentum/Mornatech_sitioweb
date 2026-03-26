@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Icon from '@mdi/react';
+import Image from 'next/image';
 import { mdiHammer, mdiHeartOutline, mdiMessageOutline, mdiCheckBold } from '@mdi/js';
 
 const beneficios = [
@@ -91,10 +92,13 @@ export default function SuperAPISection() {
                     <div className="superapi-content-top">
                         <h2 className="superapi-title">La Revolución de la atención al Cliente</h2>
                         <div className="superapi-logo">
-                            <img
-                                src="https://morna.tech/wp-content/uploads/2025/01/Recurso-1desliza.png"
+                            <Image
+                                src="/images/superapi-logo.webp"
                                 alt="SuperAPI Logo"
                                 className="superapi-logo-img"
+                                width={500}
+                                height={200}
+                                priority
                             />
                         </div>
                         <p className="superapi-description">
@@ -125,10 +129,13 @@ export default function SuperAPISection() {
                     {/* Odoo Part */}
                     <div className="superapi-odoo">
                         <div className="odoo-recurso-container">
-                            <img
-                                src="https://morna.tech/wp-content/uploads/2025/01/Recurso-25desliza.png"
+                            <Image
+                                src="/images/odoo-recurso.webp"
                                 alt="Integración Odoo"
                                 className="odoo-recurso-img"
+                                width={600}
+                                height={300}
+                                loading="lazy"
                             />
                         </div>
                         <p className="odoo-description">
@@ -185,12 +192,12 @@ export default function SuperAPISection() {
                     {/* Interactive Comparison Sliders */}
                     <div className="ia-comparisons-grid">
                         <SliderComponent
-                            img1="https://morna.tech/wp-content/uploads/2024/11/2.png"
-                            img2="https://morna.tech/wp-content/uploads/2024/11/1.png"
+                            img1="/images/2.webp"
+                            img2="/images/1.webp"
                         />
                         <SliderComponent
-                            img1="https://morna.tech/wp-content/uploads/2024/11/7.png"
-                            img2="https://morna.tech/wp-content/uploads/2024/11/6.png"
+                            img1="/images/7.webp"
+                            img2="/images/6.webp"
                         />
                     </div>
 
@@ -289,9 +296,9 @@ function SliderComponent({ img1, img2 }: SliderProps) {
             }}
             style={{ '--slider-pos': '50%', userSelect: 'none' } as any}
         >
-            <img src={img1} alt="Before" className="ia-comparison-image" style={{ zIndex: 1 }} />
+            <img src={img1} alt="Before" className="ia-comparison-image" loading="lazy" decoding="async" style={{ zIndex: 1 }} />
             <div className="ia-comparison-overlay">
-                <img src={img2} alt="After" className="ia-comparison-image" />
+                <img src={img2} alt="After" className="ia-comparison-image" loading="lazy" decoding="async" />
             </div>
             <div className="ia-comparison-slider">
                 <div className="ia-comparison-handle">

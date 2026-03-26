@@ -61,8 +61,8 @@ export default function PlanesOdooPage() {
     // Remove original Partner Oficial title from design (handling whitespace and tags)
     .replace(/<h1[^>]*>\s*PARTNER OFICIAL\s*<\/h1>/gi, '');
 
-  // Split HTML to inject React Component - capturing everything from the glossary start to the end of main
-  const glossaryRegex = /<div[^>]*data-id="1b27cbfc"[\s\S]*/i;
+  // Split HTML to inject React Component - non-greedy match to only remove the original glossary
+  const glossaryRegex = /<div[^>]*data-id="1b27cbfc"[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/section>/i;
   const parts = combinedHtml.split(glossaryRegex);
 
   let part1 = combinedHtml;
@@ -81,7 +81,7 @@ export default function PlanesOdooPage() {
   }
 
   return (
-    <div className="planes-odoo-page" style={{ background: '#2B1A40', minHeight: '100vh' }}>
+    <div className="planes-odoo-page" style={{ background: '#FEFDF5', minHeight: '100vh' }}>
       <Navbar />
       <style>{`
         /* Ocultar iconos de redes sociales no deseados en Planes Odoo */
@@ -91,8 +91,24 @@ export default function PlanesOdooPage() {
         .extra-map-section-wrapper .elementor-social-icon-x-twitter {
           display: none !important;
         }
+        
+        /* CORRECCIÓN FONDO BLANCO: Forzar beige en todo */
+        body, .planes-odoo-page, .planes-odoo-container {
+            background-color: #FEFDF5 !important;
+        }
+        /* Eliminar fondos blancos de Elementor en esta página */
+        .planes-odoo-container .elementor-section,
+        .planes-odoo-container .elementor-column,
+        .planes-odoo-container .elementor-widget-wrap {
+            background-color: transparent !important;
+        }
+        /* Asegurar que la primera sección tenga el beige si tiene imagen de fondo o color propio */
+        .planes-odoo-container .elementor-section:first-child {
+             background-color: #FEFDF5 !important;
+             margin-top: -1px; /* Evitar línea de pixel */
+        }
       `}</style>
-      <div className="planes-odoo-container" style={{ marginTop: '70px', background: '#2B1A40' }}>
+      <div className="planes-odoo-container" style={{ paddingTop: '80px', background: '#F5F5DC' }}>
         <ShadowContent html={part1} stylesheets={stylesheets} />
         <GlosarioSection />
         {part2 && <ShadowContent html={part2} stylesheets={stylesheets} />}

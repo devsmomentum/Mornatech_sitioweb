@@ -2,6 +2,7 @@
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 import { useState, useEffect } from 'react';
 
@@ -43,6 +44,7 @@ export default function SEOConIAPage() {
                 <Navbar />
                 <div style={{ minHeight: '100vh', background: '#F5F5DC' }}></div>
                 <Footer />
+                <WhatsAppButton />
             </>
         );
     }
@@ -273,7 +275,7 @@ export default function SEOConIAPage() {
                 <p><strong>3 primeras key words GRATIS.</strong></p>
             </div>
             <div class="hero-img">
-                <img src="https://morna.tech/wp-content/uploads/2024/10/2f21c1fe-f539-43c9-bf4f-7b9ef27fe00c-1024x1024.png" alt="SEO con IA">
+                <img src="/images/seo-hero.webp" alt="SEO con IA" width="1024" height="1024" fetchpriority="high" decoding="async">
             </div>
         </div>
     </section>
@@ -316,7 +318,7 @@ export default function SEOConIAPage() {
     <section class="benefits">
         <div class="container">
             <div class="benefit-img">
-                <img src="https://morna.tech/wp-content/uploads/2024/10/11020292-1.png" alt="Análisis SEO">
+                <img src="/images/seo-benefits.webp" alt="Análisis SEO" width="800" height="600" loading="lazy" decoding="async">
             </div>
             <div class="benefit-text">
                 <h2>Beneficios Clave</h2>
@@ -364,6 +366,7 @@ export default function SEOConIAPage() {
 
             ` }} />
             <Footer />
+            <WhatsAppButton />
         </>
     );
 }

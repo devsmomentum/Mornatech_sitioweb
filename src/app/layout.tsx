@@ -17,6 +17,12 @@ export const metadata: Metadata = {
     title: "Morna Tech | La Revolución de la atención al Cliente con IA",
     description: "SuperAPI mejora la atención al cliente en WhatsApp con inteligencia artificial.",
     type: "website",
+    images: ["https://morna.tech/wp-content/uploads/2024/05/cropped-Perfil.png"],
+  },
+  icons: {
+    icon: "https://morna.tech/wp-content/uploads/2024/05/cropped-Perfil.png",
+    shortcut: "https://morna.tech/wp-content/uploads/2024/05/cropped-Perfil.png",
+    apple: "https://morna.tech/wp-content/uploads/2024/05/cropped-Perfil.png",
   },
 };
 
@@ -33,7 +39,21 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet" />
+        {/* Preconnect para mejorar velocidad de carga de recursos externos */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+        {/* Preconnect al servidor de imágenes para reducir latencia DNS/TLS */}
+        <link rel="preconnect" href="https://morna.tech" />
+        <link rel="dns-prefetch" href="https://morna.tech" />
+        {/* Font Awesome */}
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
       </head>
       <body className={outfit.className} suppressHydrationWarning>
         {children}

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 const modules = [
     { title: "Compras", desc: "Gestiona pedidos, automatiza adquisiciones y controla proveedores de manera eficiente.", icon: "fas fa-shopping-cart" },
@@ -25,15 +26,14 @@ export default function GlosarioSection() {
 
     return (
         <div className="glosario-section" id="glosario-ia">
-            {/* Injecting Font Awesome for icons if not already present globally */}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+            {/* Font Awesome se carga globalmente desde layout.tsx */}
 
             <style>{`
         #glosario-ia {
             background: #2B1A40; /* Fondo Morado Original */
-            padding: 20px 0 0; 
-            margin-top: -80px;
-            margin-bottom: 0; /* Eliminado el margen negativo para dar más espacio */
+            padding: 0; 
+            margin-top: -140px; /* Elevación agresiva para subir el cuadro al máximo */
+            margin-bottom: 0;
             font-family: 'Outfit', sans-serif;
             position: relative;
             overflow: hidden;
@@ -90,6 +90,10 @@ export default function GlosarioSection() {
         }
 
         @media (max-width: 768px) {
+            .glosario-partner-footer {
+                margin: 50px auto 60px; /* Reducido de 120px/150px */
+                padding: 0 20px;
+            }
             .partner-footer-content {
                 flex-direction: column;
                 text-align: center;
@@ -127,6 +131,13 @@ export default function GlosarioSection() {
 
         /* Responsive Breakpoints */
         @media (max-width: 1024px) {
+            .partner-logo-wrapper {
+                max-width: 280px; /* Restaurado a un tamaño visible */
+                margin: 0 auto;
+            }
+            .partner-logo-img {
+                max-width: 100%; /* Permitir que ocupe el ancho del wrapper */
+            }
             .glosario-container {
                 padding: 0 20px;
                 gap: 30px;
@@ -144,7 +155,7 @@ export default function GlosarioSection() {
             .spotlight-wrapper {
                 position: relative; /* Remove sticky on mobile for better flow */
                 top: 0;
-                margin-bottom: 20px;
+                margin-bottom: 30px; /* Reducido de 60px */
             }
             .spotlight-card {
                 padding: 30px 20px;
@@ -152,6 +163,7 @@ export default function GlosarioSection() {
             .modules-list-wrapper h2 {
                 text-align: center;
                 font-size: 2rem;
+                margin-top: 30px; /* Bajar el título en móviles */
             }
             .modules-list-wrapper p {
                 text-align: center;
@@ -188,7 +200,7 @@ export default function GlosarioSection() {
                 padding: 30px 15px;
             }
             .spotlight-icon {
-                font-size: 3rem;
+                font-size: 2rem; /* Reducido drásticamente de 3rem */
             }
             .spotlight-title {
                 font-size: 1.8rem;
@@ -217,8 +229,8 @@ export default function GlosarioSection() {
 
         @media (max-width: 480px) {
             .spotlight-icon-circles {
-                width: 90px;
-                height: 90px;
+                width: 60px; /* Reducido drásticamente de 90px */
+                height: 60px;
                 margin-bottom: 15px;
             }
         }
@@ -256,6 +268,7 @@ export default function GlosarioSection() {
         .modules-list-wrapper h2 {
             font-size: 2.5rem;
             color: white; /* Título de sección blanco (fondo morado) */
+            margin-top: 60px; /* Aumentado para bajar el título notablemente */
             margin-bottom: 20px;
             font-weight: 900;
         }
@@ -357,14 +370,13 @@ export default function GlosarioSection() {
 
         /* Animation */
         .fade-in {
-            animation: fadeIn 0.4s ease-in-out;
+            animation: fadeIn 0.25s ease-out; /* Más rápido y reactivo */
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
       `}</style>
 
             <div className="glosario-container">
@@ -392,8 +404,9 @@ export default function GlosarioSection() {
                             <div
                                 key={i}
                                 className={`module-btn ${i === activeIdx ? 'active' : ''}`}
-                                onMouseEnter={() => setActiveIdx(i)}
+                                onPointerEnter={() => setActiveIdx(i)}
                                 onClick={() => setActiveIdx(i)}
+                                style={{ touchAction: 'manipulation' }}
                             >
                                 <i className={mod.icon}></i>
                                 <span>{mod.title}</span>
@@ -408,10 +421,13 @@ export default function GlosarioSection() {
                 <div className="partner-footer-content">
                     <h1 className="partner-text">PARTNER OFICIAL</h1>
                     <div className="partner-logo-wrapper">
-                        <img
+                        <Image
                             src="https://morna.tech/wp-content/uploads/2024/09/odoo_ready_partners_rgb.png"
                             alt="Odoo Ready Partner"
                             className="partner-logo-img"
+                            width={450}
+                            height={200}
+                            loading="lazy"
                         />
                     </div>
                 </div>
