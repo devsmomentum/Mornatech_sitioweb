@@ -37,7 +37,7 @@ export default function ShadowContent({ html, stylesheets }: ShadowContentProps)
           background-color: #2B1A40 !important;
           color: #404040;
           font-family: 'Outfit', sans-serif;
-          min-height: 100vh;
+          min-height: auto; /* Cambiado de 100vh para permitir que la altura se ajuste al contenido */
           margin: 0 !important;
           padding: 0 !important;
           width: 100% !important;
@@ -201,13 +201,13 @@ export default function ShadowContent({ html, stylesheets }: ShadowContentProps)
         .elementor-element-12a2cde4 {
           background-color: #F5F5DC !important;
           position: relative !important;
-          padding: 80px 40px 180px 40px !important;
+          padding: 100px 40px 200px 40px !important; /* Aumentado significativamente para más altura */
           margin: 0 !important;
           width: 100% !important;
           max-width: 100% !important;
           z-index: 1 !important;
-          /* The white bar requested by the user */
-          border-top: 15px solid #FFFFFF !important;
+          /* Barra blanca reducida para que se vea sutil */
+          border-top: 10px solid #FFFFFF !important;
         }
         
         .elementor-element-12a2cde4 .elementor-container {
@@ -288,7 +288,12 @@ export default function ShadowContent({ html, stylesheets }: ShadowContentProps)
         
         @media (max-width: 767px) {
           .elementor-element-12a2cde4 {
-            padding: 40px 15px 120px 15px !important;
+            padding: 90px 15px 130px 15px !important; /* Aumentado para más altura en móvil */
+          }
+          
+          .elementor-element-12a2cde4:after {
+            height: 100px !important; /* Reducido de 180px para móviles */
+            clip-path: polygon(0 100%, 100% 20%, 100% 100%, 0 100%) !important;
           }
           
           .elementor-element-238cd402 .elementor-heading-title {

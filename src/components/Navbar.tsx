@@ -1,120 +1,156 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
   const menuRef = useRef<HTMLUListElement>(null);
-
-  const pathname = usePathname();
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Función para actualizar la posición de la barra blanca
+  const updateIndicator = () => {
+    if (typeof window === 'undefined') return;
+    if (!menuRef.current || !wrapperRef.current) return;
+
+    // Solo mostramos el indicador en pantallas grandes
+    if (window.innerWidth <= 968) {
+      setIndicatorStyle({ left: 0, width: 0 });
+      return;
     }
-  }, [isOpen]);
 
-  useEffect(() => {
-    if (!menuRef.current) return;
+    const activeLink = menuRef.current.querySelector('.mt-navbar-link.active') as HTMLElement;
+    if (activeLink && activeLink.parentElement) {
+      const li = activeLink.parentElement as HTMLLIElement;
 
-    // Find the link that matches the current pathname
-    const links = menuRef.current.querySelectorAll('a');
-    let currentActive: HTMLAnchorElement | null = null;
-
-    // Convert NodeList to Array to safely iterate
-    Array.from(links).forEach((link) => {
-      // Check if href matches pathname (handling potential trailing slashes if needed, though simple equality usually works for exact matches)
-      const href = link.getAttribute('href');
-      if (href === pathname) {
-        currentActive = link as HTMLAnchorElement;
-      }
-    });
-
-    // If found, update indicator
-    if (currentActive) {
-      const menuRect = menuRef.current.getBoundingClientRect();
-      const activeRect = (currentActive as HTMLElement).getBoundingClientRect();
-
-      const relativeLeft = activeRect.left - menuRect.left;
-      const width = 30; // Fixed width for indicator
-
-      const itemCenter = activeRect.width / 2;
-      const centeredLeft = relativeLeft + itemCenter - (width / 2);
-
+      // Calculo robusto: offset del li + offset del ul
+      const menuOffset = menuRef.current?.offsetLeft || 0;
       setIndicatorStyle({
-        left: centeredLeft,
-        width: width,
+        left: menuOffset + li.offsetLeft,
+        width: li.offsetWidth,
       });
     } else {
       setIndicatorStyle({ left: 0, width: 0 });
     }
+  };
+
+  useEffect(() => {
+    // Pequeño delay para asegurar que el DOM esté listo y estilos aplicados
+    const timer = setTimeout(updateIndicator, 100);
+    window.addEventListener('resize', updateIndicator);
+    return () => {
+      window.removeEventListener('resize', updateIndicator);
+      clearTimeout(timer);
+    };
   }, [pathname, isOpen]);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLLIElement>) => {
-    if (menuRef.current) {
-      const menuRect = menuRef.current.getBoundingClientRect();
-      const target = e.currentTarget; // This is the LI
-      const targetRect = target.getBoundingClientRect();
+    if (typeof window === 'undefined') return;
+    if (window.innerWidth <= 968) return;
 
-      const relativeLeft = targetRect.left - menuRect.left;
-      const width = 30;
+    const li = e.currentTarget;
+    const menuOffset = menuRef.current?.offsetLeft || 0;
 
-      const itemCenter = targetRect.width / 2;
-      const centeredLeft = relativeLeft + itemCenter - (width / 2);
-
-      setIndicatorStyle({
-        left: centeredLeft,
-        width: width,
-      });
-    }
+    setIndicatorStyle({
+      left: menuOffset + li.offsetLeft,
+      width: li.offsetWidth,
+    });
   };
 
   const handleMouseLeave = () => {
-    if (!menuRef.current) return;
-
-    const links = menuRef.current.querySelectorAll('a');
-    let currentActive: HTMLAnchorElement | null = null;
-
-    Array.from(links).forEach((link) => {
-      if (link.getAttribute('href') === pathname) {
-        currentActive = link as HTMLAnchorElement;
-      }
-    });
-
-    if (currentActive) {
-      const menuRect = menuRef.current.getBoundingClientRect();
-      const activeRect = (currentActive as HTMLElement).getBoundingClientRect();
-
-      const relativeLeft = activeRect.left - menuRect.left;
-      const width = 30;
-
-      const itemCenter = activeRect.width / 2;
-      const centeredLeft = relativeLeft + itemCenter - (width / 2);
-
-      setIndicatorStyle({
-        left: centeredLeft,
-        width: width,
-      });
-    } else {
-      setIndicatorStyle(prev => ({ ...prev, width: 0 }));
-    }
+    updateIndicator();
   };
 
   return (
-    <nav className="mt-navbar">
+    <nav className={`mt-navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="mt-navbar-container">
         <Link href="/" className="mt-navbar-logo">
-          <img
-            src="https://morna.tech/wp-content/uploads/2024/04/logo-sticky.png"
+          <Image
+            src="/images/logo-sticky.webp"
             alt="Morna Tech Logo"
             className="mt-navbar-logo-img"
+            width={160}
+            height={55}
+            style={{ width: 'auto', height: 'auto' }}
+            priority
           />
         </Link>
+
+        <div ref={wrapperRef} className="mt-navbar-menu-wrapper">
+          <ul
+            ref={menuRef}
+            className={`mt-navbar-menu ${isOpen ? 'open' : ''}`}
+            onMouseLeave={handleMouseLeave}
+          >
+            {/* Logo y Enlaces exclusivos para Móvil */}
+            <li className="mt-navbar-mobile-logo mobile-only">
+              <Link href="/" onClick={() => setIsOpen(false)}>
+                <Image
+                  src="/images/logo-header2.webp"
+                  alt="Morna Tech Logo"
+                  width={120}
+                  height={40}
+                />
+              </Link>
+            </li>
+            <li className="mobile-only">
+              <Link href="#hero" onClick={() => setIsOpen(false)} className="mt-navbar-link">
+                Acerca De Nosotros
+              </Link>
+            </li>
+
+            {/* Enlaces compartidos (Desktop y Móvil) */}
+            <li onMouseEnter={handleMouseEnter} className="mt-navbar-item">
+              <Link href="/superapi" onClick={() => setIsOpen(false)} className={`mt-navbar-link ${pathname === '/superapi' ? 'active' : ''}`}>
+                <span>SuperApi</span>
+                <span className="mobile-only mobile-arrow">›</span>
+              </Link>
+            </li>
+            <li onMouseEnter={handleMouseEnter} className="mt-navbar-item">
+              <Link href="/planes-odoo" onClick={() => setIsOpen(false)} className={`mt-navbar-link ${pathname === '/planes-odoo' ? 'active' : ''}`}>
+                <span>Planes Odoo</span>
+                <span className="mobile-only mobile-arrow">›</span>
+              </Link>
+            </li>
+            <li onMouseEnter={handleMouseEnter} className="mt-navbar-item">
+              <Link href="/seo-con-ia" onClick={() => setIsOpen(false)} className={`mt-navbar-link ${pathname === '/seo-con-ia' ? 'active' : ''}`}>
+                <span className="desktop-only">Seo con IA</span>
+                <span className="mobile-only">Servicios Con IA</span>
+                <span className="mobile-only mobile-arrow">›</span>
+              </Link>
+            </li>
+
+            {/* Enlaces finales exclusivos para Móvil */}
+            <li className="mobile-only">
+              <Link href="#" onClick={() => setIsOpen(false)} className="mt-navbar-link">
+                Servicios Adicionales <span className="mobile-arrow">›</span>
+              </Link>
+            </li>
+          </ul>
+
+          {/* Barra indicadora (Solo visible en escritorio) */}
+          <div
+            className="mt-navbar-indicator desktop-only"
+            style={{
+              left: `${indicatorStyle.left}px`,
+              width: `${indicatorStyle.width}px`,
+              opacity: (indicatorStyle.width > 0 && !isOpen) ? 1 : 0
+            }}
+          />
+        </div>
 
         <button
           className={`mt-navbar-mobile-toggle ${isOpen ? 'open' : ''}`}
@@ -125,38 +161,6 @@ export default function Navbar() {
           <span></span>
           <span></span>
         </button>
-
-        <div className="mt-navbar-menu-wrapper">
-          <ul
-            ref={menuRef}
-            className={`mt-navbar-menu ${isOpen ? 'open' : ''}`}
-            onMouseLeave={handleMouseLeave}
-          >
-            <li onMouseEnter={handleMouseEnter} style={{ display: 'flex', justifyContent: 'center', width: 'auto' }}>
-              <Link href="/superapi" onClick={() => setIsOpen(false)} className={`mt-navbar-link ${pathname === '/superapi' ? 'active' : ''}`}>
-                SuperApi
-              </Link>
-            </li>
-            <li onMouseEnter={handleMouseEnter} style={{ display: 'flex', justifyContent: 'center', width: 'auto' }}>
-              <Link href="/planes-odoo" onClick={() => setIsOpen(false)} className={`mt-navbar-link ${pathname === '/planes-odoo' ? 'active' : ''}`}>
-                Planes Odoo
-              </Link>
-            </li>
-            <li onMouseEnter={handleMouseEnter} style={{ display: 'flex', justifyContent: 'center', width: 'auto' }}>
-              <Link href="/seo-con-ia" onClick={() => setIsOpen(false)} className={`mt-navbar-link ${pathname === '/seo-con-ia' ? 'active' : ''}`}>
-                Seo con IA
-              </Link>
-            </li>
-          </ul>
-          <div
-            className="mt-navbar-indicator"
-            style={{
-              left: `${indicatorStyle.left}px`,
-              width: `${indicatorStyle.width}px`,
-              opacity: indicatorStyle.width > 0 ? 1 : 0
-            }}
-          />
-        </div>
       </div>
     </nav>
   );

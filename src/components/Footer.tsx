@@ -1,21 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect } from 'react';
 
 export default function Footer() {
-    useEffect(() => {
-        // Cargar Font Awesome solo en el cliente
-        if (!document.querySelector('link[href*="font-awesome"]')) {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
-            link.integrity = 'sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==';
-            link.crossOrigin = 'anonymous';
-            link.referrerPolicy = 'no-referrer';
-            document.head.appendChild(link);
-        }
-    }, []);
 
     return (
         <footer className="contact-footer">
@@ -24,7 +11,7 @@ export default function Footer() {
                 <div className="contact-footer-logo-section">
                     <div className="footer-logo-wrapper">
                         <Image
-                            src="https://morna.tech/wp-content/uploads/2024/04/logo-sticky.png"
+                            src="/images/logo-sticky.webp"
                             alt="Morna Tech Logo"
                             width={160}
                             height={60}
@@ -35,10 +22,10 @@ export default function Footer() {
                         <a href="https://wa.me/584241222233" target="_blank" rel="noopener noreferrer" className="social-icon">
                             <i className="fab fa-whatsapp"></i>
                         </a>
-                        <a href="https://www.instagram.com/mornatech/" target="_blank" rel="noopener noreferrer" className="social-icon">
+                        <a href="https://www.instagram.com/morna.tech?igsh=anBlcmRmaWM5Ym9o" target="_blank" rel="noopener noreferrer" className="social-icon">
                             <i className="fab fa-instagram"></i>
                         </a>
-                        <a href="https://www.youtube.com/@mornatech" target="_blank" rel="noopener noreferrer" className="social-icon">
+                        <a href="https://youtube.com/@mornaelpodcast?si=2zjbtUZrEz9_uLhf" target="_blank" rel="noopener noreferrer" className="social-icon">
                             <i className="fab fa-youtube"></i>
                         </a>
                     </div>
@@ -47,24 +34,40 @@ export default function Footer() {
                 {/* Formulario de Contacto */}
                 <div className="contact-footer-form-section">
                     <h2 className="contact-footer-title">Contáctanos</h2>
-                    <form className="contact-footer-form">
+                    <form
+                        className="contact-footer-form"
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            const form = e.target as HTMLFormElement;
+                            const nombre = (form.elements[0] as HTMLInputElement).value;
+                            const email = (form.elements[1] as HTMLInputElement).value;
+                            const asunto = (form.elements[2] as HTMLInputElement).value;
+                            const mensaje = (form.elements[3] as HTMLTextAreaElement).value;
+
+                            const body = `Nombre: ${nombre}%0D%0ACorreo: ${email}%0D%0AMensaje: ${mensaje}`;
+                            window.location.href = `mailto:ventas@morna.tech?subject=${encodeURIComponent(asunto)}&body=${body}`;
+                        }}
+                    >
                         <input
                             type="text"
                             placeholder="Nombre"
                             className="contact-input"
                             required
+                            suppressHydrationWarning
                         />
                         <input
                             type="email"
                             placeholder="Correo Electrónico"
                             className="contact-input"
                             required
+                            suppressHydrationWarning
                         />
                         <input
                             type="text"
                             placeholder="Asunto"
                             className="contact-input"
                             required
+                            suppressHydrationWarning
                         />
                         <textarea
                             placeholder="Mensaje"
@@ -87,15 +90,22 @@ export default function Footer() {
                         <p><strong>Teléfono:</strong> <a href="tel:+584241222233">+58 424-1222233</a></p>
                     </div>
                     <div className="location-map">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3922.7837469238254!2d-66.85466708514605!3d10.48850016686168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a58f3e0000001%3A0x1234567890abcdef!2sC.C.%20Millennium!5e0!3m2!1ses!2sve!4v1234567890123!5m2!1ses!2sve"
-                            width="100%"
-                            height="180"
-                            style={{ border: 0, borderRadius: '8px' }}
-                            allowFullScreen
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                        ></iframe>
+                        <a
+                            href="https://www.google.com/maps?q=10.49526,-66.83303+(Centro+Comercial+Millennium)&z=17"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ display: 'block', position: 'relative' }}
+                        >
+                            <iframe
+                                src="https://maps.google.com/maps?q=10.49526,-66.83303&hl=es&z=17&output=embed"
+                                width="100%"
+                                height="180"
+                                style={{ border: 0, borderRadius: '8px', pointerEvents: 'none' }}
+                                allowFullScreen
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </a>
                     </div>
                 </div>
             </div>

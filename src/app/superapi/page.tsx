@@ -2,6 +2,7 @@
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 import { useState, useEffect } from 'react';
 
@@ -147,8 +148,9 @@ export default function SuperAPIPage() {
         return (
             <>
                 <Navbar />
-                <div style={{ minHeight: '100vh', background: '#F5F5DC' }}></div>
+                <div suppressHydrationWarning style={{ minHeight: '100vh', background: '#F5F5DC' }}></div>
                 <Footer />
+                <WhatsAppButton />
             </>
         );
     }
@@ -174,12 +176,15 @@ export default function SuperAPIPage() {
     }
 
     /* --- GENERAL --- */
+    html, body { background-color: var(--bg-beige); } /* Force body background */
     .superapi-page * { box-sizing: border-box; }
     .superapi-page {
         font-family: 'Exo 2', sans-serif;
         color: var(--text-color);
         line-height: 1.6;
-        background-color: var(--white);
+        background-color: var(--bg-beige); /* Changed from white to beige */
+        margin-top: 0;
+        padding-top: 0;
     }
     .superapi-page h1, 
     .superapi-page h2, 
@@ -345,27 +350,6 @@ export default function SuperAPIPage() {
         font-weight: 900;
         line-height: 1;
         transition: all 0.4s ease;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-    .superapi-page .odoo-card h4 .letter {
-        display: inline-block;
-        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
-    .superapi-page .odoo-card:hover h4 .letter {
-        transform: translateY(-10px) rotate(360deg) scale(1.2);
-        color: var(--primary-color);
-        text-shadow: 0 5px 15px rgba(240, 78, 138, 0.4);
-    }
-    .superapi-page .odoo-card:hover h4 .letter:nth-child(even) {
-        transform: translateY(10px) rotate(-360deg) scale(0.8);
-    }
-    .superapi-page .odoo-card:hover h4 .letter:nth-child(3n) {
-        transform: translateX(10px) translateY(-5px) rotate(15deg);
-    }
-    .superapi-page .odoo-card:hover h4 .letter:nth-child(3n+1) {
-        transform: translateX(-10px) translateY(5px) rotate(-15deg);
     }
     .superapi-page .odoo-card p {
         color: #2b1a40;
@@ -668,8 +652,23 @@ export default function SuperAPIPage() {
         .superapi-page .faq-section .container, 
         .superapi-page .features-layout, 
         .superapi-page .odoo-grid { grid-template-columns: 1fr; text-align: center; }
+        
+        .superapi-page .hero { padding: 140px 0 60px 0; min-height: auto; }
+        .superapi-page .hero-img img { max-width: 250px; margin: 0 auto; } /* Reduce hero image on mobile */
+        .superapi-page .intro-section { padding: 40px 0; }
+        .superapi-page .features-list { padding: 40px 0; }
+        .superapi-page .slider-section { padding: 40px 0; }
+        .superapi-page .faq-section { padding: 40px 0; }
+        .superapi-page .qr-gradient-section { padding: 40px 0; }
+        .superapi-page .odoo-section { padding: 40px 0; }
+        .superapi-page .odoo-cards-section { padding: 20px 0 40px 0; }
+        .superapi-page .opt-section { padding: 20px 0 40px 0; }
+        .superapi-page .timeline-header { padding: 40px 0 10px 0; }
+        .superapi-page .timeline-body { padding: 20px 0 60px 0; }
+
         .superapi-page .hero h1 { font-size: 2.8rem; }
         .superapi-page .features-info { margin-bottom: 40px; }
+        .superapi-page .features-info h2 { font-size: 2.2rem; }
         .superapi-page .features-wrapper { grid-template-columns: 1fr; }
         .superapi-page .features-wrapper .card:last-child { width: 100%; }
         .superapi-page .hero-buttons { justify-content: center; }
@@ -678,7 +677,9 @@ export default function SuperAPIPage() {
         .superapi-page .qr-text-left h2, 
         .superapi-page .qr-text-right p { text-align: center; }
         .superapi-page .qr-image-center img { max-width: 250px; }
-        .superapi-page .odoo-text h3 { text-align: center; }
+        /* Ajuste títulos Odoo móvil */
+        .superapi-page .odoo-header h2 { font-size: 2.5rem; }
+        .superapi-page .odoo-text h3 { text-align: center; font-size: 1.8rem; }
         .superapi-page .odoo-text p { text-align: left; }
         .superapi-page .odoo-cards-container {
             grid-template-columns: 1fr;
@@ -690,47 +691,137 @@ export default function SuperAPIPage() {
         .superapi-page .opt-section h2 { font-size: 2.2rem; }
         .superapi-page .opt-box i { font-size: 3.5rem; }
         .superapi-page .opt-footer-text { font-size: 1rem; }
-        /* Timeline responsive */
+        /* Timeline responsive - Estilo Cable Borde Izquierdo */
+        .superapi-page .wgl-timeline-vertical {
+            padding: 0 5px; /* Mínimo padding contenedor */
+        }
+
         .superapi-page .time_line-item {
-            justify-content: flex-start !important;
-            padding-left: 100px !important;
-            padding-right: 20px !important;
-            margin-bottom: 80px;
+            display: block !important;
+            padding: 0 0 0 35px !important;
+            padding-right: 0 !important; /* Eliminar padding derecho */
+            margin-bottom: 30px; 
+            position: relative;
+            min-height: auto !important; 
         }
         
+        /* Línea principal pegada al borde extendida Arriba y Abajo */
+        .superapi-page .wgl-timeline-vertical::before {
+            content: ''; 
+            position: absolute;
+            left: 5px;
+            width: 6px;
+            transform: none;
+            height: auto !important; /* Usar top/bottom */
+            top: -30px !important; /* Extensión hacia ARRIBA */
+            bottom: -30px !important; /* Extensión hacia ABAJO */
+            background-color: var(--accent-color);
+            z-index: 0;
+        }
+
+        /* Nodos Inicio/Fin Estilo Diana (Multicapa) */
         .superapi-page .time_line-start_image,
         .superapi-page .time_line-end_image {
-            left: 30px;
+            left: 8px; 
+            width: 32px;
+            height: 32px;
+            transform: translateX(-50%);
+            background-color: var(--primary-color) !important; /* Anillo medio (Morado) */
+            border: 5px solid var(--accent-color); /* Anillo exterior (Rosa) */
+            border-radius: 50%;
+            box-shadow: none;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Punto central pequeño (Rosa) */
+        .superapi-page .time_line-start_image::after,
+        .superapi-page .time_line-end_image::after {
+            content: '';
+            display: block;
+            width: 10px; /* Círculo pequeño */
+            height: 10px;
+            background-color: var(--accent-color); /* Rosa */
+            border-radius: 50%;
+        }
+
+        /* Ocultar contenido interno si lo hay */
+        .superapi-page .time_line-start_image span,
+        .superapi-page .time_line-end_image span {
+            display: none;
         }
         
-        .superapi-page .time_line-pointer {
-            left: 30px;
-        }
-        
-        /* Curvas en móvil - todas hacia la derecha */
+        /* Cable conector horizontal SÓLIDO - UNIFICADO */
+        .superapi-page .time_line-item .time_line-curve,
         .superapi-page .time_line-item:nth-child(odd) .time_line-curve,
         .superapi-page .time_line-item:nth-child(even) .time_line-curve {
-            left: 30px;
-            right: auto;
-            border-left: none;
-            border-right: 6px solid var(--accent-color);
-            border-bottom: 6px solid var(--accent-color);
-            border-bottom-right-radius: 60px;
-            border-top-right-radius: 60px;
-            border-bottom-left-radius: 0;
-            border-top-left-radius: 0;
-            width: 80px;
-            height: 140px;
-            top: -50px;
+            display: block !important;
+            position: absolute;
+            left: 5px !important; /* Empezar DESDE la línea vertical (left: 5px) */
+            right: auto !important; 
+            top: 25px !important;
+            width: 33px !important; /* 30px + 3px extra para compensar */
+            height: 6px !important; 
+            background-color: var(--accent-color) !important;
+            border: none !important;
+            border-radius: 0 !important;
+            z-index: 5;
+            content: '' !important;
+            transform: none !important;
+            margin: 0 !important;
+        }
+
+        /* Puntero como anillo de anclaje */
+        .superapi-page .time_line-item:nth-child(odd) .time_line-pointer,
+        .superapi-page .time_line-item:nth-child(even) .time_line-pointer {
+            left: 35px; /* Justo en el borde de la tarjeta */
+            top: 25px; /* Alineado verticalmente */
+            transform: translate(-50%, -50%); /* Centrado en la intersección */
+            width: 14px;
+            height: 14px;
+            background: var(--primary-color); /* Fondo oscuro para simular hueco */
+            border: 4px solid var(--accent-color); /* Aro grueso */
+            border-radius: 50%;
+            z-index: 15;
+            box-shadow: none;
+        }
+
+        /* Limpieza de decoraciones extra */
+        .superapi-page .time_line-pointer::after,
+        .superapi-page .time_line-item:nth-child(odd) .time_line-curve::after,
+        .superapi-page .time_line-item:nth-child(even) .time_line-curve::after,
+        .superapi-page .time_line-curve::before {
+            display: none !important;
         }
         
-        .superapi-page .time_line-item:first-child .time_line-curve {
-            top: -70px;
-            height: 160px;
-        }
-        
+        /* Tarjeta de contenido - Ultracompacta */
         .superapi-page .time_line-content {
-            max-width: 100%;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 10px 12px !important; /* Padding mínimo */
+            border-radius: 10px !important;
+            border: none;
+            border-left: 6px solid var(--accent-color) !important;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Ajustes de texto compactos */
+        .superapi-page .time_line-title {
+            font-size: 1.2rem;
+            margin-bottom: 4px; /* Margen mínimo título */
+            color: var(--primary-color);
+            text-align: left;
+            line-height: 1.2;
+        }
+        
+        .superapi-page .time_line-text p {
+            font-size: 0.95rem;
+            text-align: left;
+            line-height: 1.4;
+            margin: 0;
         }
         
         .superapi-page .odoo-subtitle { font-size: 1.2rem; flex-direction: column; gap: 10px; }
@@ -791,7 +882,7 @@ export default function SuperAPIPage() {
         background-color: white;
         box-shadow: 0 0 0 4px rgba(240, 78, 138, 0.1); 
     }
-    .chat-send { width: 45px; height: 45px; background: var(--accent-color); border-radius: 50%; border: none; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; }
+    .chat-send { width: 45px; height: 45px; background: var(--accent-color); border-radius: 50%; border: none; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; flex-shrink: 0; }
     .chat-send:hover { transform: scale(1.1); }
     .chat-suggestions { display: flex; flex-direction: column; gap: 15px; text-align: left; }
     .chat-suggestion-btn { 
@@ -817,6 +908,15 @@ export default function SuperAPIPage() {
         .chat-demo-container { grid-template-columns: 1fr; }
         .chat-suggestions { order: 2; }
         .chat-interface { order: 1; height: 400px; }
+        .chat-header-info h3 { font-size: 0.95rem; }
+        .chat-header { padding: 15px; }
+        
+        /* Ajuste para evitar corte del botón enviar */
+        .chat-input-area { padding: 15px 10px; } 
+        .chat-input { padding: 10px 15px; font-size: 0.9rem; }
+        
+        /* Ajuste título Interactúa con nuestra IA */
+        .chat-suggestions h2 { font-size: 2rem !important; margin-bottom: 15px !important; }
     }
 
 </style>
@@ -831,7 +931,7 @@ export default function SuperAPIPage() {
 
             </div>
             <div class="hero-img">
-                <img src="https://morna.tech/wp-content/uploads/2024/08/ai_chat3.png" alt="SuperApi Chat">
+                <img src="/images/ai_chat3.webp" alt="SuperApi Chat" width="585" height="585" fetchpriority="high" decoding="async">
             </div>
         </div>
     </section>
@@ -864,17 +964,17 @@ export default function SuperAPIPage() {
             <h2>¿Cómo empezar?</h2>
             <div class="slider-container">
                 <div class="slides-wrapper">
-                    <div class="slide"><img src="https://morna.tech/wp-content/uploads/2024/08/s_Paso-1.png" alt="Paso 1"></div>
-                    <div class="slide"><img src="https://morna.tech/wp-content/uploads/2024/08/s_Paso-2.png" alt="Paso 2"></div>
-                    <div class="slide"><img src="https://morna.tech/wp-content/uploads/2024/08/s_Paso-3-1.png" alt="Paso 3"></div>
-                    <div class="slide"><img src="https://morna.tech/wp-content/uploads/2024/08/s_Paso-4-1.png" alt="Paso 4"></div>
+                    <div class="slide"><img src="/images/slider-paso1.webp" alt="Paso 1" width="800" height="450" loading="lazy" decoding="async"></div>
+                    <div class="slide"><img src="/images/slider-paso2.webp" alt="Paso 2" width="800" height="450" loading="lazy" decoding="async"></div>
+                    <div class="slide"><img src="/images/slider-paso3.webp" alt="Paso 3" width="800" height="450" loading="lazy" decoding="async"></div>
+                    <div class="slide"><img src="/images/slider-paso4.webp" alt="Paso 4" width="800" height="450" loading="lazy" decoding="async"></div>
                 </div>
             </div>
             <div class="slider-dots">
-                <span class="dot active" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
-                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             </div>
         </div>
     </section>
@@ -906,7 +1006,7 @@ export default function SuperAPIPage() {
                         <div class="typing-dot"></div>
                     </div>
                     <div class="chat-input-area">
-                        <input type="text" id="chat-input" class="chat-input" placeholder="Escribe un mensaje..." autocomplete="off">
+                        <input type="text" id="chat-input" class="chat-input" placeholder="Escribe un mensaje..." autocomplete="off" suppressHydrationWarning>
                         <button class="chat-send" id="chat-send">
                             <i class="fas fa-paper-plane"></i>
                         </button>
@@ -926,7 +1026,7 @@ export default function SuperAPIPage() {
                     <h2>Escanea nuestro código QR</h2>
                 </div>
                 <div class="qr-image-center">
-                    <img src="https://morna.tech/wp-content/uploads/2025/06/Recursos-necesarios_Sticker-impresion-copia-3-1024x1024.png" alt="Escanea el código QR">
+                    <img src="/images/qr-sticker.webp" alt="Escanea el código QR" width="350" height="350" loading="lazy" decoding="async">
                 </div>
                 <div class="qr-text-right">
                     <p>y no te pierdas de la SuperAPI. Realiza las pruebas que quieras y contáctanos para contratar tu SuperAPI.</p>
@@ -954,7 +1054,7 @@ export default function SuperAPIPage() {
                     <p>Mejora la atención al cliente y optimiza procesos internos con los módulos de Odoo.</p>
                 </div>
                 <div class="odoo-img">
-                    <img src="https://morna.tech/wp-content/uploads/2024/08/Recurso-22@2x-1024x502.png" alt="SuperApi Odoo Dashboard">
+                    <img src="/images/odoo-dashboard.webp" alt="SuperApi Odoo Dashboard" width="1024" height="502" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>
@@ -1059,6 +1159,7 @@ export default function SuperAPIPage() {
 </main>
             ` }} />
             <Footer />
+            <WhatsAppButton />
         </>
     );
 }
